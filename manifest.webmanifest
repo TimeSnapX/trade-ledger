@@ -1,0 +1,36 @@
+{
+  "id": "/trade-ledger/",
+  "name": "Trade Ledger",
+  "short_name": "Trade Ledger",
+  "description": "Read-only MT5 trade tracker: P&L, risk, stats, journal and rules check. Stored only in this browser.",
+  "start_url": "./",
+  "scope": "/trade-ledger/",
+  "display": "standalone",
+  "background_color": "#0b0c0a",
+  "theme_color": "#0b0c0a",
+  "lang": "en-AU",
+  "dir": "ltr",
+  "categories": [
+    "finance"
+  ],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
