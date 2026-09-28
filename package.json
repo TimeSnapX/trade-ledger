@@ -1,0 +1,12 @@
+{
+  "name": "trade-ledger",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Read-only MT5 trade tracker: P&L, open risk, stats, journal, rules check. Static, IndexedDB.",
+  "scripts": {
+    "start": "python -m http.server 4180",
+    "test": "node --test tests/",
+    "test:e2e": "node tests/e2e.mjs"
+  }
+}

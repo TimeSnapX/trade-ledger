@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Trade Ledger · MT5 trade tracker</title>
+    <meta name="description" content="Read-only MT5 trade tracker: P&amp;L, risk, stats, journal and rules check. Stored only in this browser." />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/app.css?v=1" />
+  </head>
+  <body>
+    <div class="glow glow-a" aria-hidden="true"></div>
+    <div class="glow glow-b" aria-hidden="true"></div>
+
+    <div class="shell">
+      <header class="top">
+        <div class="brand">
+          <span class="mark" aria-hidden="true"></span>
+          <div>
+            <p class="eyebrow">Read-only · this browser only</p>
+            <h1>Trade Ledger</h1>
+          </div>
+        </div>
+        <div class="top-actions">
+          <button class="btn" type="button" data-go="settings">Settings</button>
+          <button class="btn primary" type="button" data-open-import>Import CSV</button>
+        </div>
+      </header>
+
+      <section class="sample-banner" id="sample-banner" hidden>
+        <span><b>Sample data, not real trades.</b> Tickets start with EXAMPLE-.</span>
+        <button class="btn small" type="button" data-clear-sample>Clear sample</button>
+      </section>
+
+      <main>
+        <section id="view-today" class="view" aria-label="Today"></section>
+        <section id="view-log" class="view" aria-label="Trade log" hidden></section>
+        <section id="view-stats" class="view" aria-label="Stats" hidden></section>
+        <section id="view-journal" class="view" aria-label="Journal" hidden></section>
+        <section id="view-rules" class="view" aria-label="Rules check" hidden></section>
+        <section id="view-settings" class="view" aria-label="Settings" hidden></section>
+      </main>
+    </div>
+
+    <footer>
+      <p>Read-only. No broker connection: trades come only from CSV you import. Times shown in Brisbane (AEST, UTC+10). Money in AUD.</p>
+    </footer>
+
+    <nav class="bottom-nav" aria-label="Sections">
+      <button class="tab" type="button" data-view="today" aria-selected="true">Today</button>
+      <button class="tab" type="button" data-view="log" aria-selected="false">Trade log</button>
+      <button class="tab" type="button" data-view="stats" aria-selected="false">Stats</button>
+      <button class="tab" type="button" data-view="journal" aria-selected="false">Journal</button>
+      <button class="tab" type="button" data-view="rules" aria-selected="false">Rules</button>
+    </nav>
+
+    <dialog id="dlg-import" aria-labelledby="import-title">
+      <form class="dlg" method="dialog" id="import-form">
+        <header>
+          <div>
+            <p class="eyebrow">Upsert by ticket</p>
+            <h2 id="import-title">Import CSV</h2>
+          </div>
+          <button class="btn ghost small" type="button" data-close>Close</button>
+        </header>
+        <p class="helper">Header: <code>ticket, open_time, close_time, symbol, side, lots, entry, exit, sl, tp, commission, swap, profit, tag, note</code>. Blank close_time or exit = open position. Times in broker server time (ISO or <code>YYYY.MM.DD HH:MM:SS</code>). Re-importing updates trades with the same ticket; journal notes are kept.</p>
+        <label class="field" style="margin-top:14px">CSV file
+          <input type="file" id="import-file" accept=".csv,text/csv,text/plain" />
+        </label>
+        <label class="field" style="margin-top:12px">Or paste CSV
+          <textarea id="import-paste" rows="6" placeholder="ticket,open_time,close_time,symbol,side,..."></textarea>
+        </label>
+        <div class="infobox" id="drive-note">
+          <b>Google Drive:</b> Drive auto-load coming once statements start (from <i>Trade Ledger (auto)/mt5-trades.csv</i>).
+          <div style="margin-top:8px"><button class="btn small" type="button" disabled>Load from Drive</button></div>
+        </div>
+        <div class="result" id="import-result" role="status"></div>
+        <div class="dlg-actions">
+          <button class="btn primary" type="button" id="import-go">Import</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="dlg-trade" class="wide" aria-labelledby="trade-title">
+      <div class="dlg">
+        <header>
+          <div>
+            <p class="eyebrow" id="trade-kicker">Trade</p>
+            <h2 id="trade-title">Trade</h2>
+          </div>
+          <button class="btn ghost small" type="button" data-close>Close</button>
+        </header>
+        <div id="trade-body"></div>
+      </div>
+    </dialog>
+
+    <div class="toast" id="toast" hidden role="status"></div>
+    <script type="module" src="js/app.js?v=1"></script>
+  </body>
+</html>
